@@ -7,79 +7,115 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Vueling.Application.Dto;
+using Vueling.Application.Services.Contracts;
+using Vueling.Application.Services.Service;
+using Vueling.Common.Layer;
+using Vueling.Infrastructure.Repository.DataModel;
+using Vueling.Utils.LogHelper;
 
 namespace Vueling.Facade.Api.Controllers
 {
     public class PolicyController : ApiController
     {
-        /// <summary>
-        /// The client
-        /// </summary>
-        static HttpClient client;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ClientController"/> class.
-        /// </summary>
-        public PolicyController() { }
-        /// <summary>
-        /// Initializes the <see cref="ClientController"/> class.
-        /// </summary>
-        static PolicyController()
+        private static readonly log4net.ILog log = LogHelper.GetLogger();
+
+        private readonly IService<PolicyDto> policyService;
+
+        private ExamenVuelingEntities db = new ExamenVuelingEntities();
+
+        public PolicyController() : this(new PolicyService())
         {
-            var uriClient = ConfigurationManager.AppSettings["UriClient"];
-            client = new HttpClient();
-            client.BaseAddress = new Uri(uriClient);
         }
 
+        public PolicyController(PolicyService policyService)
+        {
+            this.policyService = policyService;
+        }
+
+        // GET: api/Policy
         /// <summary>
-        /// Gets all policies.
+        /// Gets this instance.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<PolicyDto>> GetAllPolicies()
+        public List<PolicyDto> Get()
         {
-            IEnumerable<PolicyDto> policiesList = new List<PolicyDto>();
+            log.Debug(Resource.AllASent);
+            return policyService.GetAll();
+        }
+
+        // GET: api/Policy/5
+        public PolicyDto Get(int id)
+        {
+            return policyService.GetById(id);
+        }
+
+        // POST: api/Policy
+        /// <summary>
+        /// Posts the specified policy dto.
+        /// </summary>
+        /// <param name="policyDto">The policy dto.</param>
+        /// <returns></returns>
+        [ResponseType(typeof(PolicyDto))]
+        public IHttpActionResult Post(PolicyDto policyDto)
+        {
+            var defApi = ConfigurationManager.AppSettings["DefApi"];
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            PolicyDto policyDtoInsert = null;
+
             try
             {
-                var defApi = ConfigurationManager.AppSettings["DefApi"];
-
-                HttpResponseMessage response = client.GetAsync(defApi).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine(Resource.ReqMsgInfo + response.RequestMessage + Resource.n);
-                    Console.WriteLine(Resource.ReqMsgHeader + response.Content.Headers + Resource.n);
-
-                    var policyJsonString = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine(Resource.RespData + policyJsonString);
-
-                    var deserialized = JsonConvert.DeserializeObject<IEnumerable<PolicyDto>>(policyJsonString);
-                    policiesList = deserialized;
-                }
-
+                policyDtoInsert =
+                         policyService.Add(policyDto);
             }
-            catch (Exception ex)
+            catch (VuelingException ex)
             {
+                // return the best http error
+                log.Debug(Resource.NoAddP);
+                throw new HttpResponseException(HttpStatusCode.NotAcceptable);
 
-                throw ex;
             }
-            return policiesList.ToList();
+
+            return CreatedAtRoute(defApi,
+                new { id = policyDtoInsert.id }, policyDtoInsert);
 
         }
 
-        // POST: api/HttpPolicy
-        public void Post([FromBody]string value)
+        // PUT: api/Policy/5
+        /// <summary>
+        /// Puts the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        public IHttpActionResult Put(int id, PolicyDto model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            policyService.Update(model);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // PUT: api/HttpPolicy/5
-        public void Put(int id, [FromBody]string value)
+        // DELETE: api/Policy/5
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Nothing</returns>
+        public IHttpActionResult Delete(int id)
         {
-        }
-
-        // DELETE: api/HttpPolicy/5
-        public void Delete(int id)
-        {
+            return Ok(policyService.Remove(id));
         }
     }
+    
 }
 
 

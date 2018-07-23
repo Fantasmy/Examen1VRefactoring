@@ -9,114 +9,93 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Vueling.Application.Dto;
+using Vueling.Application.Services.Contracts;
+using Vueling.Application.Services.Service;
+using Vueling.Common.Layer;
 using Vueling.Infrastructure.Repository.DataModel;
+using Vueling.Utils.LogHelper;
 
 namespace Vueling.Facade.Api.Controllers
 {
     public class ClientController : ApiController
     {
-        /// <summary>
-        /// The client
-        /// </summary>
-        static HttpClient client;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ClientController"/> class.
-        /// </summary>
-        public ClientController() { }
-        /// <summary>
-        /// Initializes the <see cref="ClientController"/> class.
-        /// </summary>
-        static ClientController()
+        private static readonly log4net.ILog log = LogHelper.GetLogger();
+
+        private readonly IService<ClientDto> clientService;
+
+        private ExamenVuelingEntities db = new ExamenVuelingEntities();
+
+        public ClientController() : this(new ClientService())
         {
-            //var uriClient = ConfigurationManager.AppSettings["UriClient"];
-            client = new HttpClient();
-            client.BaseAddress = new Uri("www.mocky.io/v2/5808862710000087232b75ac");
         }
 
-        /// <summary>
-        /// Gets all clients.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<Object> GetAllClients()
+        public ClientController(ClientService clientService)
         {
-            //IEnumerable<Clients> clientsList = new List<Clients>();
+            this.clientService = clientService;
+        }
 
-            List<Object> clientsList = new List<Object>();
+        // GET: api/Client
+        public List<ClientDto> Get()
+        {
+            log.Debug(Resource.AllASent);
+            return clientService.GetAll();
+        }
+
+        // GET: api/Client/5
+        public ClientDto Get(int id)
+        {
+            return clientService.GetById(id);
+        }
+
+        // POST: api/Client
+        [ResponseType(typeof(ClientDto))]
+        public IHttpActionResult Post(ClientDto clientDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ClientDto clientDtoInsert = null;
+
             try
             {
-                //var defApi = ConfigurationManager.AppSettings["DefApi"];
-
-                HttpResponseMessage response = client.GetAsync("DefaultApi").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine(Resource.ReqMsgInfo + response.RequestMessage + Resource.n);
-                    Console.WriteLine(Resource.ReqMsgHeader + response.Content.Headers + Resource.n);
-
-                    var clientJsonString = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine(Resource.RespData + clientJsonString);
-
-                    //var deserialized = JsonConvert.DeserializeObject<IEnumerable<Clients>>(clientJsonString);
-                    //clientsList = deserialized;
-
-                    DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(clientJsonString);
-
-                    DataTable dataTable = dataSet.Tables["clients"];
-
-                    Console.WriteLine(dataTable.Rows.Count);
-                    // 2
-
-                    foreach (DataRow row in dataTable.Rows)
-                    {
-                        Console.WriteLine(row["id"] + " - " + row["name"] + " - " + row["email"] + " - " + row["role"]);
-                        clientsList.Add(row);
-                    }
-
-                }
-
+                log.Debug(Resource.TryNewC);
+                clientDtoInsert =
+                         clientService.Add(clientDto);
             }
-            catch (Exception ex)
+            catch (VuelingException ex)
             {
-
-                throw ex;
+                log.Debug(Resource.NoAddC);
+                throw new HttpResponseException(HttpStatusCode.NotAcceptable);
             }
-            return clientsList;
+
+            var defApi = ConfigurationManager.AppSettings["DefApi"];
+
+            return CreatedAtRoute(defApi,
+                new { id = clientDtoInsert.id }, clientDtoInsert);
 
         }
 
+        // PUT: api/Client/5
+        public IHttpActionResult Put(int id, ClientDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            clientService.Update(model);
 
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
-        /// <summary>
-        /// The method
-        /// </summary>
-
-        // POST Method
-
-        /// <summary>
-        /// Adds the client.
-        /// </summary>
-        /// <param name="client">The client.</param>
-        //public async void AddClient(ClientDto client)
-        //{
-        //    var clientJson = JsonConvert.SerializeObject(client);
-
-        //    try
-        //    {
-        //        var encodingToBytes = System.Text.Encoding.UTF8.GetBytes(clientJson);
-        //        var byteContent = new ByteArrayContent(encodingToBytes);
-
-        //        byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-        //        var result = await client.PostAsync("api/Client", byteContent);
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-
-
+        // DELETE: api/Client/5
+        public IHttpActionResult Delete(int id)
+        {
+            log.Debug(Resource.OkDel);
+            return Ok(clientService.Remove(id));
+        }
     }
 }
