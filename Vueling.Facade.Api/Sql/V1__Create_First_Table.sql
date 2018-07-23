@@ -1,0 +1,15 @@
+﻿USE ExamenVueling
+GO
+--N CONVERT TEXT TO NVARCHAR
+--U USER DEFINED TABLE
+IF OBJECT_ID(N'ExamenVueling.dbo.Clients', N'U') IS NULL
+BEGIN
+	-- Create table
+CREATE TABLE dbo.Clients
+(
+	id UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
+	name [NVARCHAR](50) NOT NULL,
+	email [NVARCHAR](50) NOT NULL,
+	role [NVARCHAR] (14) NOT NULL
+);
+END

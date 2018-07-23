@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "e7ace340-9350-41d7-8077-7b5351ae58fe",
+		"name": "ExamenVueling_Auth",
+		"description": "Testing web api with postman ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:65162/api/login/echoping",
+					"host": [
+						"localhost"
+					],
+					"port": "65162",
+					"path": [
+						"api",
+						"login",
+						"echoping"
+					]
+				},
+				"description": "To see if the web api is connected"
+			},
+			"response": []
+		},
+		{
+			"name": "Check user connected",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:65162/api/login/echouser",
+					"host": [
+						"localhost"
+					],
+					"port": "65162",
+					"path": [
+						"api",
+						"login",
+						"echouser"
+					]
+				},
+				"description": "To check if there is a user loged in"
+			},
+			"response": []
+		},
+		{
+			"name": "Login user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"fakeuser@mail.com\" \n}"
+				},
+				"url": {
+					"raw": "localhost:65162/api/login/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "65162",
+					"path": [
+						"api",
+						"login",
+						"authenticate"
+					]
+				},
+				"description": "Not authorized user to login"
+			},
+			"response": []
+		},
+		{
+			"name": "Login user ok",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"fake@user.com\" \n}"
+				},
+				"url": {
+					"raw": "localhost:65162/api/login/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "65162",
+					"path": [
+						"api",
+						"login",
+						"authenticate"
+					]
+				},
+				"description": "Login with email"
+			},
+			"response": []
+		},
+		{
+			"name": "Auth with token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImZha2VAdXNlci5jb20iLCJuYmYiOjE1MzIyMDQzMDgsImV4cCI6MTUzMjIwNjEwOCwiaWF0IjoxNTMyMjA0MzA4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjY1MTYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2NTE2MiJ9.d3d_5emk4m5lleImTGMFKGngHEtUxfKvCr4_sEUhoYU"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"fake@user.com\" \n}"
+				},
+				"url": {
+					"raw": "localhost:65162/api/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "65162",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
