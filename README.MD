@@ -26,6 +26,8 @@ If you have never used Flyway, you can check the following beginner tutorial her
 - Create a new empty database in SQL Server named Covaldo
 - Run a cmd as administrator from flyway folder and execute "flyway migrate" (Don't forget to set up flyway's configuration file)
 - Open Visual Studio and install all packages and framework needed
+- Set Vueling.Facade.Api as starting project
+- Compile all the solution
 - Then press Ctrl + F5 to startup the web api
 - You can post, update and delete with Postman
 

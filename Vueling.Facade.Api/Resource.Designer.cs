@@ -115,6 +115,24 @@ namespace Vueling.Facade.Api {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Can&apos;t insert new client.
+        /// </summary>
+        internal static string NoAddC {
+            get {
+                return ResourceManager.GetString("NoAddC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Can&apos;t insert new policy.
+        /// </summary>
+        internal static string NoAddP {
+            get {
+                return ResourceManager.GetString("NoAddP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Permission granted to remove client.
         /// </summary>
         internal static string OkDel {

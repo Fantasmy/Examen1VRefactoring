@@ -124,28 +124,28 @@
     <value>Exception error</value>
   </data>
   <data name="ErExEV" xml:space="preserve">
-    <value>Entity validation exception msg</value>
+    <value>There was an error with the Entity validation</value>
   </data>
   <data name="ErExInvO" xml:space="preserve">
-    <value>Invalid operation exception</value>
+    <value>Invalid operation</value>
   </data>
   <data name="ErExNotS" xml:space="preserve">
-    <value>Not supported exception msg</value>
+    <value>Not supported</value>
   </data>
   <data name="ErExObjD" xml:space="preserve">
-    <value>Object disposed exception</value>
+    <value>Object disposed</value>
   </data>
   <data name="ErExU" xml:space="preserve">
-    <value>Update exception msg</value>
+    <value>Update exception</value>
   </data>
   <data name="ErExUC" xml:space="preserve">
-    <value>Update currency exception msg</value>
+    <value>Update currency error</value>
   </data>
   <data name="ExEV" xml:space="preserve">
-    <value>Entity validation exception</value>
+    <value>Entity validation error</value>
   </data>
   <data name="ExInvO" xml:space="preserve">
-    <value>Invalid operation exception</value>
+    <value>Invalid operation</value>
   </data>
   <data name="ExNotS" xml:space="preserve">
     <value>Not supported exception</value>

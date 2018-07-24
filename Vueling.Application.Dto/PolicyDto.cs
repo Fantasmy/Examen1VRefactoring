@@ -16,6 +16,6 @@ namespace Vueling.Application.Dto
         public bool installmentPayment { get; set; }
         public Guid clientId { get; set; }
 
-        public virtual Clients Clients { get; set; }
+        //public virtual Clients Clients { get; set; }
     }
 }

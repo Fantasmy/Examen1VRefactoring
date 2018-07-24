@@ -79,7 +79,7 @@ namespace Vueling.Infrastructure.Repository {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Entity validation exception msg.
+        ///   Busca una cadena traducida similar a There was an error with the Entity validation.
         /// </summary>
         internal static string ErExEV {
             get {
@@ -88,7 +88,7 @@ namespace Vueling.Infrastructure.Repository {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Invalid operation exception.
+        ///   Busca una cadena traducida similar a Invalid operation.
         /// </summary>
         internal static string ErExInvO {
             get {
@@ -97,7 +97,7 @@ namespace Vueling.Infrastructure.Repository {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Not supported exception msg.
+        ///   Busca una cadena traducida similar a Not supported.
         /// </summary>
         internal static string ErExNotS {
             get {
@@ -106,7 +106,7 @@ namespace Vueling.Infrastructure.Repository {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Object disposed exception.
+        ///   Busca una cadena traducida similar a Object disposed.
         /// </summary>
         internal static string ErExObjD {
             get {
@@ -115,7 +115,7 @@ namespace Vueling.Infrastructure.Repository {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Update exception msg.
+        ///   Busca una cadena traducida similar a Update exception.
         /// </summary>
         internal static string ErExU {
             get {
@@ -124,7 +124,7 @@ namespace Vueling.Infrastructure.Repository {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Update currency exception msg.
+        ///   Busca una cadena traducida similar a Update currency error.
         /// </summary>
         internal static string ErExUC {
             get {
@@ -133,7 +133,7 @@ namespace Vueling.Infrastructure.Repository {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Entity validation exception.
+        ///   Busca una cadena traducida similar a Entity validation error.
         /// </summary>
         internal static string ExEV {
             get {
@@ -142,7 +142,7 @@ namespace Vueling.Infrastructure.Repository {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Invalid operation exception.
+        ///   Busca una cadena traducida similar a Invalid operation.
         /// </summary>
         internal static string ExInvO {
             get {

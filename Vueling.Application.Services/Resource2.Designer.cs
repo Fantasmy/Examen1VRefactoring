@@ -70,11 +70,74 @@ namespace Vueling.Application.Services {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a \n.
+        /// </summary>
+        internal static string n {
+            get {
+                return ResourceManager.GetString("n", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Can&apos;t insert new client.
+        /// </summary>
+        internal static string NoAddC {
+            get {
+                return ResourceManager.GetString("NoAddC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Can&apos;t insert new policy.
+        /// </summary>
+        internal static string NoAddP {
+            get {
+                return ResourceManager.GetString("NoAddP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Permission granted to remove client.
+        /// </summary>
+        internal static string OkDel {
+            get {
+                return ResourceManager.GetString("OkDel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Returned clients list.
         /// </summary>
         internal static string ReAList {
             get {
                 return ResourceManager.GetString("ReAList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Response Message Header \n\n.
+        /// </summary>
+        internal static string ReqMsgHeader {
+            get {
+                return ResourceManager.GetString("ReqMsgHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Request Message Information: - \n\n.
+        /// </summary>
+        internal static string ReqMsgInfo {
+            get {
+                return ResourceManager.GetString("ReqMsgInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your response data is: .
+        /// </summary>
+        internal static string RespData {
+            get {
+                return ResourceManager.GetString("RespData", resourceCulture);
             }
         }
     }

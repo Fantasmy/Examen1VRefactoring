@@ -19,7 +19,7 @@ choco install flyway.commandline
 Install-Module -Name SqlServer 
 #
 #Database creation (ExamenVueling)
-sqlcmd -S localhost\ExamenVueling -i \Vueling.Facade.Api\Sql\Create_Database_ExamenVueling.sql
+sqlcmd -S localhost\master -i Vueling.Facade.Api\Sql\Create_Database_ExamenVueling.sql
 #
 #
 echo "Info installation status at C:\ProgramData\chocolatey\logs\chocolatey.log"
