@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Vueling.Application.Services.Contracts
 {
-    public interface IService<T>
+    public interface IClientService<T>
     {
         T Add(T model);
-        T Update(T model);
         List<T> GetAll();
-        T GetById(int id);
-        int Remove(int id);
+        T GetById(Guid id);
+        List<T> GetByName(string name);
+        T GetByEmail(string email);
     }
 }
