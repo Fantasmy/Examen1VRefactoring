@@ -14,7 +14,7 @@ using Vueling.Utils.LogHelper;
 
 namespace Vueling.Infrastructure.Repository.Repository
 {
-    public class PolicyRepository : IRepository<PolicyEntity>
+    public class PolicyRepository : IPolicyRepository<PolicyEntity>
     {
         private static readonly log4net.ILog log = LogHelper.GetLogger();
 
@@ -22,7 +22,6 @@ namespace Vueling.Infrastructure.Repository.Repository
 
         public PolicyRepository() : this(new ExamenVuelingEntities())
         {
-
         }
 
         public PolicyRepository(
@@ -30,23 +29,25 @@ namespace Vueling.Infrastructure.Repository.Repository
         {
             this.db = examenVuelingEntities;
         }
+
         /// <summary>
-        /// Adds the specified model.
+        /// Add method.
         /// </summary>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>Returns a new policy</returns>
         /// <exception cref="VuelingException">
         /// </exception>
         public PolicyEntity Add(PolicyEntity model)
         {
             Policies policy = null;
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<PolicyEntity, Policies>());
-            IMapper iMapper = config.CreateMapper();
+          
+            IMapper iMapper = AutomapperConfig.writeConfig.CreateMapper();
+
             policy = iMapper.Map<PolicyEntity, Policies>(model);
 
             try
             {
-                db.Policies.Add(policy);
+                if (db.Policies.Find(policy.id) == null)
+                    db.Policies.Add(policy);
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException ex)
@@ -79,69 +80,46 @@ namespace Vueling.Infrastructure.Repository.Repository
                 log.Error(Resource3.ExInvO);
                 throw new VuelingException(Resource3.ErExInvO, ex);
             }
+
             return model;
         }
 
+        /// <summary>
+        /// Get all method.
+        /// </summary>
+        /// <returns>Returns all policies list</returns>
         public List<PolicyEntity> GetAll()
         {
-            List<PolicyEntity> policyEntity;
-            IQueryable<Policies> policyClients;
-            try
-            {
-                policyClients = db.Policies;
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                log.Error(Resource3.ExUC);
-                throw new VuelingException(Resource3.ErExUC, ex);
-            }
-            catch (DbUpdateException ex)
-            {
-                log.Error(Resource3.ExU);
-                throw new VuelingException(Resource3.ErExU, ex);
-            }
-            catch (DbEntityValidationException ex)
-            {
-                log.Error(Resource3.ExEV);
-                throw new VuelingException(Resource3.ErExEV, ex);
-            }
-            catch (NotSupportedException ex)
-            {
-                log.Error(Resource3.ExNotS);
-                throw new VuelingException(Resource3.ErExNotS, ex);
-            }
-            catch (ObjectDisposedException ex)
-            {
-                log.Error(Resource3.ExObjD);
-                throw new VuelingException(Resource3.ErExObjD, ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                log.Error(Resource3.ExInvO);
-                throw new VuelingException(Resource3.ErExInvO, ex);
-            }
+            List<PolicyEntity> policiesEntity;
+            IQueryable<Policies> listPolicies;
 
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Policies, PolicyEntity>());
-            IMapper iMapper = config.CreateMapper();
+            listPolicies = db.Policies;
 
-            policyEntity = iMapper.Map<List<PolicyEntity>>(policyClients);
+            IMapper iMapper = AutomapperConfig.writeConfig.CreateMapper();
+
+            policiesEntity = iMapper.Map<List<PolicyEntity>>(listPolicies);
+
+            return policiesEntity;
+        }
+
+        /// <summary>
+        /// Get by id method.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Returns a policy identified by id</returns>
+        public PolicyEntity GetById(Guid id)
+        {
+            PolicyEntity policyEntity;
+            Policies policy;
+
+            IMapper iMapper = AutomapperConfig.readConfig.CreateMapper();
+
+            policy = db.Policies.Find(id);
+
+            policyEntity = iMapper.Map<PolicyEntity>(policy);
 
             return policyEntity;
         }
 
-        public PolicyEntity GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public PolicyEntity Update(PolicyEntity model)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
