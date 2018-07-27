@@ -16,14 +16,27 @@ namespace Vueling.Infrastructure.Repository.Repository
 {
     public class PolicyRepository : IPolicyRepository<PolicyEntity>
     {
+        /// <summary>
+        /// Calling the log helper
+        /// </summary>
         private static readonly log4net.ILog log = LogHelper.GetLogger();
 
+        /// <summary>
+        /// The database
+        /// </summary>
         private readonly ExamenVuelingEntities db;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolicyRepository"/> class.
+        /// </summary>
         public PolicyRepository() : this(new ExamenVuelingEntities())
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolicyRepository"/> class.
+        /// </summary>
+        /// <param name="examenVuelingEntities">The examen vueling entities.</param>
         public PolicyRepository(
             ExamenVuelingEntities examenVuelingEntities)
         {

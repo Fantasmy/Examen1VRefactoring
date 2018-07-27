@@ -16,15 +16,27 @@ namespace Vueling.Infrastructure.Repository.Repository
 {
     public class ClientRepository : IClientRepository<ClientEntity>
     {
+        /// <summary>
+        /// Calls the log herlper
+        /// </summary>
         private static readonly log4net.ILog log = LogHelper.GetLogger();
 
+        /// <summary>
+        /// The database
+        /// </summary>
         private readonly ExamenVuelingEntities db;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientRepository"/> class.
+        /// </summary>
         public ClientRepository() : this(new ExamenVuelingEntities())
         {
-
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientRepository"/> class.
+        /// </summary>
+        /// <param name="examenVuelingEntities">The examen vueling entities.</param>
         public ClientRepository(
             ExamenVuelingEntities examenVuelingEntities)
         {
