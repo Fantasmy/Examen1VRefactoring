@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
+using Vueling.Application.Services.Service;
 
 namespace Vueling.Facade.Api.Controllers
 {
@@ -19,6 +20,8 @@ namespace Vueling.Facade.Api.Controllers
         /// <returns>Token as string</returns>
         public static string GenerateTokenJwt(string email)
         {
+            ClientService clientService = new ClientService();
+
             // appsetting for Token JWT
             var secretKey = ConfigurationManager.AppSettings["JWT_SECRET_KEY"];
             var audienceToken = ConfigurationManager.AppSettings["JWT_AUDIENCE_TOKEN"];
@@ -29,7 +32,9 @@ namespace Vueling.Facade.Api.Controllers
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             // create a claimsIdentity 
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, email) });
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] 
+            { new Claim(ClaimTypes.Name, email),
+              new Claim(ClaimTypes.Role, clientService.GetByEmail(email).role) });
 
             // create token to the user 
             var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();

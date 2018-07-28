@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
+using Vueling.Application.Services.Service;
 using Vueling.Facade.Api.Models;
 using Vueling.Utils.LogHelper;
 
@@ -55,10 +56,11 @@ namespace Vueling.Facade.Api.Controllers
         [Route("authenticate")]
         public IHttpActionResult Authenticate(LoginRequest login)
         {
+            ClientService service = new ClientService();
             if (login == null)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            bool isCredentialValid = (login.email == "fake@user.com");
+            bool isCredentialValid = (login.email == service.GetByEmail(login.email).email);
             if (isCredentialValid)
             {
                 var token = TokenGenerator.GenerateTokenJwt(login.email);
