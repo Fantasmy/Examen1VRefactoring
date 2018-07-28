@@ -53,10 +53,12 @@ namespace Vueling.Facade.Api.Controllers
         /// <returns></returns>
         /// <exception cref="HttpResponseException"></exception>
         [HttpPost]
+        //[HttpGet]
         [Route("authenticate")]
         public IHttpActionResult Authenticate(LoginRequest login)
         {
             ClientService service = new ClientService();
+
             if (login == null)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
