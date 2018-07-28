@@ -16,6 +16,8 @@ namespace Vueling.Facade.Api
             GlobalConfiguration.Configuration
                 .EnableSwagger(c =>
                     {
+                        c.IncludeXmlComments(string.Format(@"{0}\bin\Vueling.Facade.Api.xml",
+                           System.AppDomain.CurrentDomain.BaseDirectory));
                         // By default, the service root url is inferred from the request used to access the docs.
                         // However, there may be situations (e.g. proxy and load-balanced environments) where this does not
                         // resolve correctly. You can workaround this by providing your own code to determine the root URL.
@@ -36,7 +38,7 @@ namespace Vueling.Facade.Api
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
-                        //c.PrettyPrint();
+                        c.PrettyPrint();
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swashbuckle which actions should be
