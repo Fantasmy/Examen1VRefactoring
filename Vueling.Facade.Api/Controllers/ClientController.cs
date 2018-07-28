@@ -19,6 +19,8 @@ using Vueling.Utils.LogHelper;
 
 namespace Vueling.Facade.Api.Controllers
 {
+    [Authorize]
+    [RoutePrefix("api/Client")]
     public class ClientController : ApiController
     {
         private static readonly log4net.ILog log = LogHelper.GetLogger();
@@ -49,6 +51,8 @@ namespace Vueling.Facade.Api.Controllers
         /// Get all clients list.
         /// </summary>
         /// <returns>Returns all clients list</returns>
+        [HttpGet]
+        [Authorize(Roles = "admin, user")]
         public IEnumerable<ClientDto> GetAll()
         {
             log.Debug(Resource.AllCliSent);
@@ -62,6 +66,9 @@ namespace Vueling.Facade.Api.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Returns the client identified by id</returns>
+        [HttpGet]
+        [Authorize(Roles = "admin, user")]
+        [Route("api/Clients/id/{id}")]
         public ClientDto Get(Guid id)
         {
             return clientService.GetById(id);
@@ -73,6 +80,9 @@ namespace Vueling.Facade.Api.Controllers
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>Returns the client identified by name</returns>
+        [HttpGet]
+        [Authorize(Roles = "admin, user")]
+        [Route("api/Clients/name/{name}")]
         public List<ClientDto> GetByName(string name)
         {
             log.Debug(Resource.ReCliByName);

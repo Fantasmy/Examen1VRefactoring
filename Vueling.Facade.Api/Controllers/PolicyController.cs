@@ -17,6 +17,8 @@ using Vueling.Utils.LogHelper;
 
 namespace Vueling.Facade.Api.Controllers
 {
+    [Authorize]
+    [RoutePrefix("api/Policy")]
     public class PolicyController : ApiController
     {
         private static readonly log4net.ILog log = LogHelper.GetLogger();
@@ -44,6 +46,8 @@ namespace Vueling.Facade.Api.Controllers
         /// Gets this instance.
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "admin")]
         public IEnumerable<PolicyDto> GetAll()
         {
             log.Debug(Resource.AllPolSent);
@@ -56,6 +60,8 @@ namespace Vueling.Facade.Api.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Returns the policy identified by id</returns>
+        [HttpGet]
+        [Authorize(Roles = "admin, user")]
         public PolicyDto Get(Guid id)
         {
             log.Debug(Resource.RePolById);
