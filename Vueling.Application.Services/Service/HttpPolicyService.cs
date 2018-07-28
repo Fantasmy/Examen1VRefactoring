@@ -14,39 +14,39 @@ namespace Vueling.Application.Services.Service
 {
     class HttpPolicyService
     {
-            /// <summary>
-            /// The client
-            /// </summary>
-            static HttpClient client;
-            /// <summary>
-            /// Initializes a new instance of the <see cref="ClientController"/> class.
-            /// </summary>
-            public HttpPolicyService() { }
-            /// <summary>
-            /// Initializes the <see cref="ClientController"/> class.
-            /// </summary>
-            static HttpPolicyService()
+        /// <summary>
+        /// The client
+        /// </summary>
+        static HttpClient client;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientController"/> class.
+        /// </summary>
+        public HttpPolicyService()
+        {
+        }
+        /// <summary>
+        /// Initializes the <see cref="ClientController"/> class.
+        /// </summary>
+        static HttpPolicyService()
             {
                 var uriPolicy = ConfigurationManager.AppSettings["UriPolicy"];
                 client = new HttpClient();
                 client.BaseAddress = new Uri(uriPolicy);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        }
+            }
 
         /// <summary>
-        /// Gets all policies.
+        /// Gets all policies from json url.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns all policies data from url</returns>
         public async Task<PoliciesListDto> GetAllPolicies()
             {
                 PoliciesListDto policiesListDto = null;
 
                 try
                 {
-                    var defApi = ConfigurationManager.AppSettings["DefApi"];
-
-                    HttpResponseMessage response = client.GetAsync(defApi).Result;
+                    HttpResponseMessage response = client.GetAsync(client.BaseAddress).Result;
                     if (response.IsSuccessStatusCode)
                     {
                         Console.WriteLine(Resource2.ReqMsgInfo + response.RequestMessage + Resource2.n);
@@ -60,29 +60,15 @@ namespace Vueling.Application.Services.Service
                     }
 
                 }
-                catch (VuelingException ex)
+                catch (HttpRequestException ex)
                 {
 
                     throw new VuelingException();
                 }
+
                 return policiesListDto;
 
             }
-
-            //// POST: api/HttpPolicy
-            //public void Post([FromBody]string value)
-            //{
-            //}
-
-            //// PUT: api/HttpPolicy/5
-            //public void Put(int id, [FromBody]string value)
-            //{
-            //}
-
-            //// DELETE: api/HttpPolicy/5
-            //public void Delete(int id)
-            //{
-            //}
         }
     }
 

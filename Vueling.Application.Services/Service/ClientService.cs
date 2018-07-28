@@ -14,35 +14,44 @@ using Vueling.Utils.LogHelper;
 
 namespace Vueling.Application.Services.Service
 {
-    public class ClientService : IService<ClientDto>
+    public class ClientService : IClientService<ClientDto>
     {
+        /// <summary>
+        /// Calls the log helper
+        /// </summary>
         private static readonly log4net.ILog log = LogHelper.GetLogger();
 
-        private readonly IRepository<ClientEntity> clientRepository;
+        /// <summary>
+        /// The client repository
+        /// </summary>
+        private readonly IClientRepository<ClientEntity> clientRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientService"/> class.
+        /// </summary>
         public ClientService() : this(new ClientRepository())
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientService"/> class.
+        /// </summary>
+        /// <param name="clientRepository">The client repository.</param>
         public ClientService(ClientRepository clientRepository)
         {
             this.clientRepository = clientRepository;
         }
+
         /// <summary>
-        /// Returns the specified client dto.
+        /// Add method.
         /// </summary>
-        /// <param name="clientDto">The client dto.</param>
-        /// <returns></returns>
-        public ClientDto Add(ClientDto clientDto)
+        /// <returns>Returns a new client Dto</returns>
+        public ClientDto Add(ClientDto model)
         {
-            ClientEntity clientEntity = new ClientEntity();
+            ClientEntity clientEntity = null;
+            IMapper iMapper = AutomapperConfigService.writeConfig.CreateMapper();
 
-            var config = new MapperConfiguration(cfg =>
-            cfg.CreateMap<ClientDto, ClientEntity>());
-
-            IMapper iMapper = config.CreateMapper();
-
-            clientEntity = iMapper.Map<ClientDto, ClientEntity>(clientDto);
+            clientEntity = iMapper.Map<ClientDto, ClientEntity>(model);
 
             try
             {
@@ -51,51 +60,91 @@ namespace Vueling.Application.Services.Service
             catch (VuelingException ex)
             {
                 log.Error(Resource2.AnEx);
-                throw;
+                throw ex;
             }
 
-            return clientDto;
+            log.Debug(Resource2.ReCliList);
+
+            return model;
         }
 
         /// <summary>
-        /// Returns clients list dto.
+        /// Get all method.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns all client list Dto</returns>
         public List<ClientDto> GetAll()
         {
-            List<ClientDto> clientDtos;
+            List<ClientDto> listClientDtos;
             List<ClientEntity> clientRepositoryArrive;
-            try
-            {
-                clientRepositoryArrive = clientRepository.GetAll();
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientEntity, ClientDto>());
-                IMapper iMapper = config.CreateMapper();
 
-                clientDtos = iMapper.Map<List<ClientDto>>(clientRepositoryArrive);
-            }
-            catch (VuelingException ex)
-            {
-                log.Error(Resource2.AnEx);
-                throw;
-            }
+            clientRepositoryArrive = clientRepository.GetAll();
 
-            log.Debug(Resource2.ReAList);
-            return clientDtos;
+            IMapper iMapper = AutomapperConfigService.readConfig.CreateMapper();
+
+            listClientDtos = iMapper.Map<List<ClientDto>>(clientRepositoryArrive);
+
+            log.Debug(Resource2.ReCliList);
+            return listClientDtos;
         }
 
-        public ClientDto GetById(int id)
+        /// <summary>
+        /// Get client by email method.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns>Returns client identified by email</returns>
+        public ClientDto GetByEmail(string email)
         {
-            throw new NotImplementedException();
+            ClientDto client;
+            ClientEntity clientEntityArrive;
+
+            clientEntityArrive = clientRepository.GetByEmail(email);
+
+            IMapper iMapper = AutomapperConfigService.readConfig.CreateMapper();
+
+            client = iMapper.Map<ClientDto>(clientEntityArrive);
+
+            log.Debug(Resource2.ReCliByMail);
+            return client;
         }
 
-        public int Remove(int id)
+        /// <summary>
+        /// Get by id method.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Returns client by id identifier</returns>
+        public ClientDto GetById(Guid id)
         {
-            throw new NotImplementedException();
+            ClientDto client;
+            ClientEntity clientEntityArrive;
+
+            clientEntityArrive = clientRepository.GetById(id);
+
+            IMapper iMapper = AutomapperConfigService.readConfig.CreateMapper();
+
+            client = iMapper.Map<ClientDto>(clientEntityArrive);
+
+            log.Debug(Resource2.ReCliById);
+            return client;
         }
 
-        public ClientDto Update(ClientDto model)
+        /// <summary>
+        /// Get the client by name method.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>Returns the client identified by name</returns>
+        public List<ClientDto> GetByName(string name)
         {
-            throw new NotImplementedException();
+            List<ClientDto> client;
+            List<ClientEntity> clientesEntityArrive;
+
+            clientesEntityArrive = clientRepository.GetByName(name);
+
+            IMapper iMapper = AutomapperConfigService.readConfig.CreateMapper();
+
+            client = iMapper.Map<List<ClientDto>>(clientesEntityArrive);
+
+            log.Debug(Resource2.ReCliByName);
+            return client;
         }
     }
 }

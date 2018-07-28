@@ -115,6 +115,60 @@ namespace Vueling.Application.Services {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Returned client dto by id.
+        /// </summary>
+        internal static string ReCliById {
+            get {
+                return ResourceManager.GetString("ReCliById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Returned client dto by email.
+        /// </summary>
+        internal static string ReCliByMail {
+            get {
+                return ResourceManager.GetString("ReCliByMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Returned client dto by name.
+        /// </summary>
+        internal static string ReCliByName {
+            get {
+                return ResourceManager.GetString("ReCliByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Returned client dto list.
+        /// </summary>
+        internal static string ReCliList {
+            get {
+                return ResourceManager.GetString("ReCliList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Returned policy dto by id.
+        /// </summary>
+        internal static string RePolById {
+            get {
+                return ResourceManager.GetString("RePolById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Returned policy dto list.
+        /// </summary>
+        internal static string RePolList {
+            get {
+                return ResourceManager.GetString("RePolList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Response Message Header \n\n.
         /// </summary>
         internal static string ReqMsgHeader {

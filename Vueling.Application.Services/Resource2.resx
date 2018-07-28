@@ -144,4 +144,22 @@
   <data name="RespData" xml:space="preserve">
     <value>Your response data is: </value>
   </data>
+  <data name="RePolById" xml:space="preserve">
+    <value>Returned policy dto by id</value>
+  </data>
+  <data name="RePolList" xml:space="preserve">
+    <value>Returned policy dto list</value>
+  </data>
+  <data name="ReCliById" xml:space="preserve">
+    <value>Returned client dto by id</value>
+  </data>
+  <data name="ReCliByMail" xml:space="preserve">
+    <value>Returned client dto by email</value>
+  </data>
+  <data name="ReCliByName" xml:space="preserve">
+    <value>Returned client dto by name</value>
+  </data>
+  <data name="ReCliList" xml:space="preserve">
+    <value>Returned client dto list</value>
+  </data>
 </root>

@@ -30,24 +30,25 @@ namespace Vueling.Application.Services.Service
         static HttpClientService()
         {
             var uriClient = ConfigurationManager.AppSettings["UriClient"];
+
             client = new HttpClient();
+
             client.BaseAddress = new Uri(uriClient);
+
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         /// <summary>
-        /// Gets all clients.
+        /// Gets all clients list from Json url.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns all clients data from url</returns>
         public async Task<ClientsListDto> GetAllClients()
         {
             ClientsListDto clientsListDto = null;
 
             try
             {
-                var defApi = ConfigurationManager.AppSettings["DefApi"];
-
-                HttpResponseMessage response = client.GetAsync(defApi).Result;
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     Console.WriteLine(Resource2.ReqMsgInfo + response.RequestMessage + Resource2.n);
@@ -58,61 +59,16 @@ namespace Vueling.Application.Services.Service
 
                     clientsListDto = JsonConvert.DeserializeObject<ClientsListDto>(clientJsonString);
 
-                    //DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(clientJsonString);
-
-                    //DataTable dataTable = dataSet.Tables["clients"];
-
-                    //Console.WriteLine(dataTable.Rows.Count);
-                    //// 2
-
-                    //foreach (DataRow row in dataTable.Rows)
-                    //{
-                    //    Console.WriteLine(row["id"] + " - " + row["name"] + " - " + row["email"] + " - " + row["role"]);
-                    //}
-
                 }
 
             }
-            catch (VuelingException ex)
+            catch (HttpRequestException ex)
             {
-
-                //throw new HttpResponseException(HttpStatusCode.NotAcceptable);
+                throw new VuelingException();
             }
+
             return clientsListDto;
 
         }
-
-
-
-        /// <summary>
-        /// The method
-        /// </summary>
-
-        // POST Method
-
-        /// <summary>
-        /// Adds the client.
-        /// </summary>
-        /// <param name="client">The client.</param>
-        //public async void AddClient(ClientDto client)
-        //{
-        //    var clientJson = JsonConvert.SerializeObject(client);
-
-        //    try
-        //    {
-        //        var encodingToBytes = System.Text.Encoding.UTF8.GetBytes(clientJson);
-        //        var byteContent = new ByteArrayContent(encodingToBytes);
-
-        //        byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-        //        var result = await client.PostAsync("api/Client", byteContent);
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
     }
 }

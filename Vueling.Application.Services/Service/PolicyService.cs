@@ -14,88 +14,99 @@ using Vueling.Utils.LogHelper;
 
 namespace Vueling.Application.Services.Service
 {
-    public class PolicyService : IService<PolicyDto>
+    public class PolicyService : IPolicyService<PolicyDto>
     {
+        /// <summary>
+        /// Calls the log helper
+        /// </summary>
         private static readonly log4net.ILog log = LogHelper.GetLogger();
 
-        private readonly IRepository<PolicyEntity> policyRepository;
+        /// <summary>
+        /// The policy repository
+        /// </summary>
+        private readonly IPolicyRepository<PolicyEntity> policyRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolicyService"/> class.
+        /// </summary>
         public PolicyService() : this(new PolicyRepository())
         {
         }
 
-        public PolicyService(PolicyRepository alumnoRepository)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolicyService"/> class.
+        /// </summary>
+        /// <param name="policyRepository">The policy repository.</param>
+        public PolicyService(PolicyRepository policyRepository)
         {
             this.policyRepository = policyRepository;
         }
 
         /// <summary>
-        /// Returns the specified policy dto.
+        /// Add new policy method.
         /// </summary>
-        /// <param name="policyDto">The policy dto.</param>
-        /// <returns></returns>
-        public PolicyDto Add(PolicyDto policyDto)
+        /// <param name="model">The model.</param>
+        /// <returns>Returns a new policy dto</returns>
+        public PolicyDto Add(PolicyDto model)
         {
             PolicyEntity policyEntity = null;
 
-            var config = new MapperConfiguration(cfg =>
-            cfg.CreateMap<PolicyDto, PolicyEntity>());
+            IMapper iMapper = AutomapperConfigService.writeConfig.CreateMapper();
 
-            IMapper iMapper = config.CreateMapper();
+            policyEntity = iMapper.Map<PolicyDto, PolicyEntity>(model);
 
-            policyEntity = iMapper.Map<PolicyDto, PolicyEntity>(policyDto); 
             try
             {
                 policyRepository.Add(policyEntity);
+
             }
             catch (VuelingException ex)
             {
                 log.Error(Resource2.AnEx);
-                throw;
-            }
-
-            return policyDto;
-        }
-
-        /// <summary>
-        /// Returns policies list dto.
-        /// </summary>
-        /// <returns></returns>
-        public List<PolicyDto> GetAll()
-        {
-            List<PolicyDto> policyDtos;
-            List<PolicyEntity> policyRepositoryArrive;
-            try
-            {
-                policyRepositoryArrive = policyRepository.GetAll();
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<PolicyEntity, PolicyDto>());
-                IMapper iMapper = config.CreateMapper();
-
-                policyDtos = iMapper.Map<List<PolicyDto>>(policyRepositoryArrive);
-            }
-            catch (VuelingException ex)
-            {
-                log.Error(Resource2.AnEx);
-                throw;
+                throw ex;
             }
 
             log.Debug(Resource2.ReAList);
-            return policyDtos;
+            return model;
         }
 
-        public PolicyDto GetById(int id)
+        /// <summary>
+        /// Get all policies method.
+        /// </summary>
+        /// <returns>Returns the list of policies dto</returns>
+        public List<PolicyDto> GetAll()
         {
-            throw new NotImplementedException();
+            List<PolicyDto> listPolicyDtos;
+            List<PolicyEntity> listPolicyRepositoryArrive;
+
+            listPolicyRepositoryArrive = policyRepository.GetAll();
+
+            IMapper iMapper = AutomapperConfigService.readConfig.CreateMapper();
+
+            listPolicyDtos = iMapper.Map<List<PolicyDto>>(listPolicyRepositoryArrive);
+
+            log.Debug(Resource2.RePolList);
+            return listPolicyDtos;
         }
 
-        public int Remove(int id)
+        /// <summary>
+        /// Get the policy by id method.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Returns a policy identified by id</returns>
+        public PolicyDto GetById(Guid id)
         {
-            throw new NotImplementedException();
-        }
+            PolicyDto policy;
+            PolicyEntity policyEntityArrive;
 
-        public PolicyDto Update(PolicyDto model)
-        {
-            throw new NotImplementedException();
+            policyEntityArrive = policyRepository.GetById(id);
+
+            IMapper iMapper = AutomapperConfigService.readConfig.CreateMapper();
+
+            policy = iMapper.Map<PolicyDto>(policyEntityArrive);
+
+            log.Debug(Resource2.RePolById);
+            return policy;
         }
     }
 }
