@@ -67,7 +67,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource2.resx</DependentUpon>
     </Compile>
-    <Compile Include="Service\AutomapperConfigService.cs" />
     <Compile Include="Service\ClientService.cs" />
     <Compile Include="Service\HttpClientService.cs" />
     <Compile Include="Service\HttpPolicyService.cs" />

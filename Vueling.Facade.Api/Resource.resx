@@ -162,4 +162,22 @@
   <data name="NoAddP" xml:space="preserve">
     <value>Can't insert new policy</value>
   </data>
+  <data name="AllCliSent" xml:space="preserve">
+    <value>Returned all clients list</value>
+  </data>
+  <data name="AllPolSent" xml:space="preserve">
+    <value>Returned all policies list</value>
+  </data>
+  <data name="InserCli" xml:space="preserve">
+    <value>Inserted new client</value>
+  </data>
+  <data name="InserPoli" xml:space="preserve">
+    <value>Inserted a new policy</value>
+  </data>
+  <data name="ReCliByName" xml:space="preserve">
+    <value>Returned client identified by name</value>
+  </data>
+  <data name="RePolById" xml:space="preserve">
+    <value>Returned policy identified by id</value>
+  </data>
 </root>

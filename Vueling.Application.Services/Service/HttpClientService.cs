@@ -14,16 +14,13 @@ using Vueling.Common.Layer;
 
 namespace Vueling.Application.Services.Service
 {
-    class HttpClientService
+    public static class HttpClientService
     {
         /// <summary>
         /// The client
         /// </summary>
         static HttpClient client;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ClientController"/> class.
-        /// </summary>
-        public HttpClientService() { }
+        
         /// <summary>
         /// Initializes the <see cref="ClientController"/> class.
         /// </summary>
@@ -42,7 +39,7 @@ namespace Vueling.Application.Services.Service
         /// Gets all clients list from Json url.
         /// </summary>
         /// <returns>Returns all clients data from url</returns>
-        public async Task<ClientsListDto> GetAllClients()
+        public static async Task<ClientsListDto> GetAllClients()
         {
             ClientsListDto clientsListDto = null;
 

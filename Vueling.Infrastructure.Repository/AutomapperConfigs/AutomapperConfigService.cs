@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Vueling.Application.Dto;
 using Vueling.Domain.Entities;
 
-namespace Vueling.Application.Services.Service
+namespace Vueling.Infrastructure.Repository.Repository
 {
     public class AutomapperConfigService
     {

@@ -137,6 +137,10 @@
       <Project>{702CC7E7-8F77-41B5-8A81-52E48E74C586}</Project>
       <Name>Vueling.Application.Dto</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Vueling.Application.Services\Vueling.Application.Services.csproj">
+      <Project>{cd399076-1400-4787-a54b-1cb5dad1fd54}</Project>
+      <Name>Vueling.Application.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Vueling.Facade.Api\Vueling.Facade.Api.csproj">
       <Project>{3CD6A391-D2B8-4FF7-8A5F-DBF287823C50}</Project>
       <Name>Vueling.Facade.Api</Name>

@@ -70,6 +70,24 @@ namespace Vueling.Facade.Api {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Returned all clients list.
+        /// </summary>
+        internal static string AllCliSent {
+            get {
+                return ResourceManager.GetString("AllCliSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Returned all policies list.
+        /// </summary>
+        internal static string AllPolSent {
+            get {
+                return ResourceManager.GetString("AllPolSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Echoed ping.
         /// </summary>
         internal static string eP {
@@ -106,6 +124,24 @@ namespace Vueling.Facade.Api {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Inserted new client.
+        /// </summary>
+        internal static string InserCli {
+            get {
+                return ResourceManager.GetString("InserCli", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Inserted a new policy.
+        /// </summary>
+        internal static string InserPoli {
+            get {
+                return ResourceManager.GetString("InserPoli", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a \n.
         /// </summary>
         internal static string n {
@@ -138,6 +174,24 @@ namespace Vueling.Facade.Api {
         internal static string OkDel {
             get {
                 return ResourceManager.GetString("OkDel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Returned client identified by name.
+        /// </summary>
+        internal static string ReCliByName {
+            get {
+                return ResourceManager.GetString("ReCliByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Returned policy identified by id.
+        /// </summary>
+        internal static string RePolById {
+            get {
+                return ResourceManager.GetString("RePolById", resourceCulture);
             }
         }
         

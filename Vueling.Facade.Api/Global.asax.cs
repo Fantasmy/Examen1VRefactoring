@@ -6,7 +6,11 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Vueling.Application.Dto;
+using Vueling.Application.Services.Service;
+using Vueling.Facade.Api.Controllers;
 using Vueling.Utils.LogHelper;
+
 
 namespace Vueling.Facade.Api
 {
@@ -15,14 +19,33 @@ namespace Vueling.Facade.Api
         private static readonly log4net.ILog log = LogHelper.GetLogger();
         protected void Application_Start()
         {
-            log.Debug("Hello world");
-
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             log4net.Config.XmlConfigurator.Configure();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ClientController clientApi = new ClientController();
+            ClientsListDto ClientToList = new ClientsListDto();
+
+            ClientToList = HttpClientService.GetAllClients().Result;
+
+            foreach (ClientDto client in ClientToList.clientDto)
+            {
+                clientApi.Post(client);
+            }
+
+
+            PolicyController policyApi = new PolicyController();
+            PoliciesListDto PolicyToList = new PoliciesListDto();
+
+            PolicyToList = HttpPolicyService.GetAllPolicies().Result;
+
+            foreach (PolicyDto policy in PolicyToList.policyDto)
+            {
+                policyApi.Post(policy);
+            }
         }
     }
 }

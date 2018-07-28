@@ -12,27 +12,22 @@ using Vueling.Common.Layer;
 
 namespace Vueling.Application.Services.Service
 {
-    class HttpPolicyService
+    public static class HttpPolicyService
     {
         /// <summary>
         /// The client
         /// </summary>
-        static HttpClient client;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ClientController"/> class.
-        /// </summary>
-        public HttpPolicyService()
-        {
-        }
+        static HttpClient policy;
+        
         /// <summary>
         /// Initializes the <see cref="ClientController"/> class.
         /// </summary>
         static HttpPolicyService()
             {
                 var uriPolicy = ConfigurationManager.AppSettings["UriPolicy"];
-                client = new HttpClient();
-                client.BaseAddress = new Uri(uriPolicy);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                policy = new HttpClient();
+                policy.BaseAddress = new Uri(uriPolicy);
+                policy.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             }
 
@@ -40,13 +35,13 @@ namespace Vueling.Application.Services.Service
         /// Gets all policies from json url.
         /// </summary>
         /// <returns>Returns all policies data from url</returns>
-        public async Task<PoliciesListDto> GetAllPolicies()
+        public static async Task<PoliciesListDto> GetAllPolicies()
             {
                 PoliciesListDto policiesListDto = null;
 
                 try
                 {
-                    HttpResponseMessage response = client.GetAsync(client.BaseAddress).Result;
+                    HttpResponseMessage response = policy.GetAsync(policy.BaseAddress).Result;
                     if (response.IsSuccessStatusCode)
                     {
                         Console.WriteLine(Resource2.ReqMsgInfo + response.RequestMessage + Resource2.n);

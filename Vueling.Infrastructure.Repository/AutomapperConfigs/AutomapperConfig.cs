@@ -9,7 +9,7 @@ using Vueling.Infrastructure.Repository.DataModel;
 
 namespace Vueling.Infrastructure.Repository.Repository
 {
-    class AutomapperConfig
+    public class AutomapperConfig
     {
         public static MapperConfiguration writeConfig;
 

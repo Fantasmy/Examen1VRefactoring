@@ -25,16 +25,16 @@ namespace Vueling.Facade.Api.Controllers.Tests
             Assert.Fail();
         }
 
-        [TestMethod()]
-        public void ClientControllerTest1()
-        {
-            //ClientController controller = new ClientController();
+        //[TestMethod()]
+        //public void ClientControllerTest1();
+        //{
+        //    ClientController controller = new ClientController();
 
-            //ClientDto clientDto = controller.Get(1);
+        //    ClientDto clientDto = controller.Get(id);
 
-            //Assert.IsNotNull(clientDto);
-            //Assert.AreEqual(1, clientDto.id);
-        }
+        //    Assert.IsNotNull(clientDto);
+        //    Assert.AreEqual(1, clientDto.id);
+        //}
 
         /// <summary>
         /// Tests the get mthod.
@@ -42,11 +42,11 @@ namespace Vueling.Facade.Api.Controllers.Tests
         [TestMethod()]
         public void GetTest()
         {
-            //ClientController controller = new ClientController();
-            //ClientDto clientDto = new ClientDto();
-            //IEnumerable<ClientDto> clients = controller.Get();
-            //Assert.IsTrue(clients.Count<ClientDto>() > 0);
-            //log.Debug("Get all clients from test");
+            ClientController controller = new ClientController();
+            ClientDto clientDto = new ClientDto();
+            IEnumerable<ClientDto> clients = controller.GetAll();
+            Assert.IsTrue(clients.Count<ClientDto>() > 0);
+            log.Debug("Get all clients from test");
         }
 
         [TestMethod()]

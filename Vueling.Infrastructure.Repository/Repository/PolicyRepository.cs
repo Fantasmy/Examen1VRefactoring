@@ -52,8 +52,10 @@ namespace Vueling.Infrastructure.Repository.Repository
         public PolicyEntity Add(PolicyEntity model)
         {
             Policies policy = null;
-          
-            IMapper iMapper = AutomapperConfig.writeConfig.CreateMapper();
+
+            //IMapper iMapper = AutomapperConfig.writeConfig.CreateMapper();
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<PolicyEntity, Policies>());
+            IMapper iMapper = config.CreateMapper();
 
             policy = iMapper.Map<PolicyEntity, Policies>(model);
 
@@ -108,7 +110,7 @@ namespace Vueling.Infrastructure.Repository.Repository
 
             listPolicies = db.Policies;
 
-            IMapper iMapper = AutomapperConfig.writeConfig.CreateMapper();
+            IMapper iMapper = AutomapperConfig.readConfig.CreateMapper();
 
             policiesEntity = iMapper.Map<List<PolicyEntity>>(listPolicies);
 

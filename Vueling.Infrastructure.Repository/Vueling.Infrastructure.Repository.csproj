@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomapperConfigs\AutomapperConfigService.cs" />
     <Compile Include="DataModel\Clients.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -80,6 +81,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AutomapperConfigs\AutomapperConfig.cs" />
     <Compile Include="Repository\ClientRepository.cs" />
     <Compile Include="Repository\PolicyRepository.cs" />
     <Compile Include="Resource3.Designer.cs">
@@ -92,6 +94,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Vueling.Application.Dto\Vueling.Application.Dto.csproj">
+      <Project>{702CC7E7-8F77-41B5-8A81-52E48E74C586}</Project>
+      <Name>Vueling.Application.Dto</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Vueling.Common.Layer\Vueling.Common.Layer.csproj">
       <Project>{a9891f66-d8a7-48b0-88e3-d645d1c26fe1}</Project>
       <Name>Vueling.Common.Layer</Name>
