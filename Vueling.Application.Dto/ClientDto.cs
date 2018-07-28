@@ -9,15 +9,12 @@ using static Vueling.Domain.Entities.PolicyEntity;
 
 namespace Vueling.Application.Dto
 {
-    //[Table("clients")]
     public class ClientDto
     {
         public Guid id { get; set; }
         public string name { get; set; }
         public string email { get; set; }
         public string role { get; set; }
-
-        //public List<PolicyDto> Policies { get; set; }
 
     }
 }
