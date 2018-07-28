@@ -23,35 +23,70 @@ namespace Vueling.Facade.Api.Controllers
     {
         private static readonly log4net.ILog log = LogHelper.GetLogger();
 
-        private readonly IService<ClientDto> clientService;
+        /// <summary>
+        /// The client service
+        /// </summary>
+        private readonly IClientService<ClientDto> clientService;
 
-        private ExamenVuelingEntities db = new ExamenVuelingEntities();
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientController"/> class.
+        /// </summary>
         public ClientController() : this(new ClientService())
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientController"/> class.
+        /// </summary>
+        /// <param name="clientService">The client service.</param>
         public ClientController(ClientService clientService)
         {
             this.clientService = clientService;
         }
 
         // GET: api/Client
-        public List<ClientDto> Get()
+        /// <summary>
+        /// Get all clients list.
+        /// </summary>
+        /// <returns>Returns all clients list</returns>
+        public IEnumerable<ClientDto> GetAll()
         {
-            log.Debug(Resource.AllASent);
+            log.Debug(Resource.AllCliSent);
+
             return clientService.GetAll();
         }
 
         // GET: api/Client/5
-        public ClientDto Get(int id)
+        /// <summary>
+        /// Get the client by id.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Returns the client identified by id</returns>
+        public ClientDto Get(Guid id)
         {
             return clientService.GetById(id);
         }
 
+        // GET: api/Client/John
+        /// <summary>
+        /// Get client by name.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>Returns the client identified by name</returns>
+        public List<ClientDto> GetByName(string name)
+        {
+            log.Debug(Resource.ReCliByName);
+            return clientService.GetByName(name);
+        }
+
         // POST: api/Client
+        /// <summary>
+        /// Post client method.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>Inserts a new client</returns>
         [ResponseType(typeof(ClientDto))]
-        public IHttpActionResult Post(ClientDto clientDto)
+        public IHttpActionResult Post(ClientDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -64,7 +99,7 @@ namespace Vueling.Facade.Api.Controllers
             {
                 log.Debug(Resource.TryNewC);
                 clientDtoInsert =
-                         clientService.Add(clientDto);
+                         clientService.Add(model);
             }
             catch (VuelingException ex)
             {
@@ -74,28 +109,29 @@ namespace Vueling.Facade.Api.Controllers
 
             var defApi = ConfigurationManager.AppSettings["DefApi"];
 
+            log.Debug(Resource.InserCli);
             return CreatedAtRoute(defApi,
                 new { id = clientDtoInsert.id }, clientDtoInsert);
 
         }
 
-        // PUT: api/Client/5
-        public IHttpActionResult Put(int id, ClientDto model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            clientService.Update(model);
+        //// PUT: api/Client/5
+        //public IHttpActionResult Put(int id, ClientDto model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    clientService.Update(model);
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
-        // DELETE: api/Client/5
-        public IHttpActionResult Delete(int id)
-        {
-            log.Debug(Resource.OkDel);
-            return Ok(clientService.Remove(id));
-        }
+        //// DELETE: api/Client/5
+        //public IHttpActionResult Delete(int id)
+        //{
+        //    log.Debug(Resource.OkDel);
+        //    return Ok(clientService.Remove(id));
+        //}
     }
 }

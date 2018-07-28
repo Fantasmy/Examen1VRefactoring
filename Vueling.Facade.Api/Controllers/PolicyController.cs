@@ -21,14 +21,19 @@ namespace Vueling.Facade.Api.Controllers
     {
         private static readonly log4net.ILog log = LogHelper.GetLogger();
 
-        private readonly IService<PolicyDto> policyService;
+        private readonly IPolicyService<PolicyDto> policyService;
 
-        private ExamenVuelingEntities db = new ExamenVuelingEntities();
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolicyController"/> class.
+        /// </summary>
         public PolicyController() : this(new PolicyService())
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolicyController"/> class.
+        /// </summary>
+        /// <param name="policyService">The policy service.</param>
         public PolicyController(PolicyService policyService)
         {
             this.policyService = policyService;
@@ -39,15 +44,21 @@ namespace Vueling.Facade.Api.Controllers
         /// Gets this instance.
         /// </summary>
         /// <returns></returns>
-        public List<PolicyDto> Get()
+        public IEnumerable<PolicyDto> GetAll()
         {
-            log.Debug(Resource.AllASent);
+            log.Debug(Resource.AllPolSent);
             return policyService.GetAll();
         }
 
         // GET: api/Policy/5
-        public PolicyDto Get(int id)
+        /// <summary>
+        /// Get policy by id.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Returns the policy identified by id</returns>
+        public PolicyDto Get(Guid id)
         {
+            log.Debug(Resource.RePolById);
             return policyService.GetById(id);
         }
 
@@ -58,7 +69,7 @@ namespace Vueling.Facade.Api.Controllers
         /// <param name="policyDto">The policy dto.</param>
         /// <returns></returns>
         [ResponseType(typeof(PolicyDto))]
-        public IHttpActionResult Post(PolicyDto policyDto)
+        public IHttpActionResult Post(PolicyDto model)
         {
             var defApi = ConfigurationManager.AppSettings["DefApi"];
 
@@ -72,48 +83,48 @@ namespace Vueling.Facade.Api.Controllers
             try
             {
                 policyDtoInsert =
-                         policyService.Add(policyDto);
+                         policyService.Add(model);
             }
             catch (VuelingException ex)
             {
-                // return the best http error
                 log.Debug(Resource.NoAddP);
                 throw new HttpResponseException(HttpStatusCode.NotAcceptable);
 
             }
 
+            log.Debug(Resource.InserPoli);
             return CreatedAtRoute(defApi,
                 new { id = policyDtoInsert.id }, policyDtoInsert);
 
         }
 
-        // PUT: api/Policy/5
-        /// <summary>
-        /// Puts the specified identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
-        public IHttpActionResult Put(int id, PolicyDto model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            policyService.Update(model);
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //// PUT: api/Policy/5
+        ///// <summary>
+        ///// Puts the specified identifier.
+        ///// </summary>
+        ///// <param name="id">The identifier.</param>
+        ///// <param name="model">The model.</param>
+        ///// <returns></returns>
+        //public IHttpActionResult Put(int id, PolicyDto model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    policyService.Update(model);
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
-        // DELETE: api/Policy/5
-        /// <summary>
-        /// Deletes the specified identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>Nothing</returns>
-        public IHttpActionResult Delete(int id)
-        {
-            return Ok(policyService.Remove(id));
-        }
+        //// DELETE: api/Policy/5
+        ///// <summary>
+        ///// Deletes the specified identifier.
+        ///// </summary>
+        ///// <param name="id">The identifier.</param>
+        ///// <returns>Nothing</returns>
+        //public IHttpActionResult Delete(int id)
+        //{
+        //    return Ok(policyService.Remove(id));
+        //}
     }
     
 }
