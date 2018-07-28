@@ -180,4 +180,28 @@
   <data name="RePolById" xml:space="preserve">
     <value>Returned policy identified by id</value>
   </data>
+  <data name="auth" xml:space="preserve">
+    <value>Authorization</value>
+  </data>
+  <data name="cus1" xml:space="preserve">
+    <value>customer-1</value>
+  </data>
+  <data name="cus2" xml:space="preserve">
+    <value>customer-2</value>
+  </data>
+  <data name="cus3" xml:space="preserve">
+    <value>customer-3</value>
+  </data>
+  <data name="fcus" xml:space="preserve">
+    <value>customer-fake</value>
+  </data>
+  <data name="tokenB" xml:space="preserve">
+    <value>Bearer</value>
+  </data>
+  <data name="version" xml:space="preserve">
+    <value>v1</value>
+  </data>
+  <data name="webApi" xml:space="preserve">
+    <value>Vueling.Facade.Api</value>
+  </data>
 </root>

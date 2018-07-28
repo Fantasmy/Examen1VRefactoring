@@ -11,6 +11,7 @@ using System.Resources;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Vueling.Infrastructure.Repository.DataModel;
+using Vueling.Facade.Api.Tests;
 
 namespace Vueling.Facade.Api.Controllers.Tests
 {
@@ -46,7 +47,7 @@ namespace Vueling.Facade.Api.Controllers.Tests
             ClientDto clientDto = new ClientDto();
             IEnumerable<ClientDto> clients = controller.GetAll();
             Assert.IsTrue(clients.Count<ClientDto>() > 0);
-            log.Debug("Get all clients from test");
+            log.Debug(Resource5.GetCAll);
         }
 
         [TestMethod()]

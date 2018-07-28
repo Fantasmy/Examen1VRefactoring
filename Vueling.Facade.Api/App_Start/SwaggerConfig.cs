@@ -2,6 +2,7 @@ using System.Web.Http;
 using WebActivatorEx;
 using Vueling.Facade.Api;
 using Swashbuckle.Application;
+using System.Configuration;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -11,12 +12,14 @@ namespace Vueling.Facade.Api
     {
         public static void Register()
         {
+            var xmlPath = ConfigurationManager.AppSettings["XmlPath"];
+
             var thisAssembly = typeof(SwaggerConfig).Assembly;
 
             GlobalConfiguration.Configuration
                 .EnableSwagger(c =>
                     {
-                        c.IncludeXmlComments(string.Format(@"{0}\bin\Vueling.Facade.Api.xml",
+                        c.IncludeXmlComments(string.Format(@xmlPath,
                            System.AppDomain.CurrentDomain.BaseDirectory));
                         // By default, the service root url is inferred from the request used to access the docs.
                         // However, there may be situations (e.g. proxy and load-balanced environments) where this does not
@@ -34,7 +37,7 @@ namespace Vueling.Facade.Api
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "Vueling.Facade.Api");
+                        c.SingleApiVersion(Resource.version, Resource.webApi);
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //

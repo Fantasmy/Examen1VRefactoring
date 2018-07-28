@@ -88,6 +88,42 @@ namespace Vueling.Facade.Api {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Authorization.
+        /// </summary>
+        internal static string auth {
+            get {
+                return ResourceManager.GetString("auth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a customer-1.
+        /// </summary>
+        internal static string cus1 {
+            get {
+                return ResourceManager.GetString("cus1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a customer-2.
+        /// </summary>
+        internal static string cus2 {
+            get {
+                return ResourceManager.GetString("cus2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a customer-3.
+        /// </summary>
+        internal static string cus3 {
+            get {
+                return ResourceManager.GetString("cus3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Echoed ping.
         /// </summary>
         internal static string eP {
@@ -102,6 +138,15 @@ namespace Vueling.Facade.Api {
         internal static string eU {
             get {
                 return ResourceManager.GetString("eU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a customer-fake.
+        /// </summary>
+        internal static string fcus {
+            get {
+                return ResourceManager.GetString("fcus", resourceCulture);
             }
         }
         
@@ -232,6 +277,15 @@ namespace Vueling.Facade.Api {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Bearer.
+        /// </summary>
+        internal static string tokenB {
+            get {
+                return ResourceManager.GetString("tokenB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Trying to add new client controller.
         /// </summary>
         internal static string TryNewC {
@@ -246,6 +300,24 @@ namespace Vueling.Facade.Api {
         internal static string Unauth {
             get {
                 return ResourceManager.GetString("Unauth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a v1.
+        /// </summary>
+        internal static string version {
+            get {
+                return ResourceManager.GetString("version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Vueling.Facade.Api.
+        /// </summary>
+        internal static string webApi {
+            get {
+                return ResourceManager.GetString("webApi", resourceCulture);
             }
         }
     }

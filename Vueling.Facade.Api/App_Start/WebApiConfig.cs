@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Http;
 using Vueling.Facade.Api.Controllers;
@@ -13,7 +14,8 @@ namespace Vueling.Facade.Api
 
         public static void Register(HttpConfiguration config)
         {
-
+            var defApi = ConfigurationManager.AppSettings["DefApi"];
+            var routeTemp = ConfigurationManager.AppSettings["RouteTemp"];
             // Configuration and services of web Api
 
             // Route web API
@@ -22,8 +24,8 @@ namespace Vueling.Facade.Api
             config.MessageHandlers.Add(new TokenValidationHandler());
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                name: defApi,
+                routeTemplate: routeTemp,
                 defaults: new { id = RouteParameter.Optional }
             );
         }

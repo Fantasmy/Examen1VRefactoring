@@ -20,14 +20,17 @@ namespace Vueling.Facade.Api.Controllers
         /// <param name="token">The token.</param>
         private static bool TryRetrieveToken(HttpRequestMessage request, out string token)
         {
+            var auth = ConfigurationManager.AppSettings["Auth"];
+            var tokenB = ConfigurationManager.AppSettings["TokenB"];
+
             token = null;
             IEnumerable<string> authzHeaders;
-            if (!request.Headers.TryGetValues("Authorization", out authzHeaders) || authzHeaders.Count() > 1)
+            if (!request.Headers.TryGetValues(auth, out authzHeaders) || authzHeaders.Count() > 1)
             {
                 return false;
             }
             var bearerToken = authzHeaders.ElementAt(0);
-            token = bearerToken.StartsWith("Bearer ") ? bearerToken.Substring(7) : bearerToken;
+            token = bearerToken.StartsWith(tokenB) ? bearerToken.Substring(7) : bearerToken;
             return true;
         }
 

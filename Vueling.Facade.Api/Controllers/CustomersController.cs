@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -17,14 +18,14 @@ namespace Vueling.Facade.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetId(int id)
         {
-            var customerFake = "customer-fake";
+            var customerFake = Resource.fcus;
             return Ok(customerFake);
         }
 
         [HttpGet]
         public IHttpActionResult GetAll()
         {
-            var customersFake = new string[] { "customer-1", "customer-2", "customer-3" };
+            var customersFake = new string[] { Resource.cus1, Resource.cus2, Resource.cus3 };
             return Ok(customersFake);
         }
     }
