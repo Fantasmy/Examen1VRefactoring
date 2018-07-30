@@ -118,6 +118,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ClientControllerTests.cs" />
     <Compile Include="Controllers\PolicyControllerTests.cs" />
+    <Compile Include="Controllers\SeleniumTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Resource5.Designer.cs">

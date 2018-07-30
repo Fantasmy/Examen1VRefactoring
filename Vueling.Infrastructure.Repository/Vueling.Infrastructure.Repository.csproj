@@ -80,6 +80,7 @@
     <Compile Include="DataModel\Policies.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Modules\VuelingInfractructureRepositoryModules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AutomapperConfigs\AutomapperConfig.cs" />
     <Compile Include="Repository\ClientRepository.cs" />
