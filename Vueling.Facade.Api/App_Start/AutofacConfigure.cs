@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using Vueling.Facade.Api.Modules;
 using Vueling.Utils.LogHelper;
 
 namespace Vueling.Facade.Api.App_Start
@@ -15,7 +16,7 @@ namespace Vueling.Facade.Api.App_Start
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterModule(new LoggingModule());
+            builder.RegisterModule(new VuelingApiModules());
 
             var container = builder.Build();
 

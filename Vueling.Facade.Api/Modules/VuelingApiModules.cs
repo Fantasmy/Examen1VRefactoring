@@ -1,24 +1,41 @@
-﻿using System;
+﻿using Autofac;
+using Autofac.Integration.WebApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
+using Vueling.Application.Services.Contracts;
+using Vueling.Application.Services.Module;
+using Vueling.Application.Services.Service;
+using Vueling.Utils.LogHelper;
 
 namespace Vueling.Facade.Api.Modules
 {
     public class VuelingApiModules : Autofac.Module
     {
-        //protected override void Load(ContainerBuilder builder)
-        //{
-        //    builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-        //    builder
-        //         .RegisterType<Log4netAdapter>()
-        //         .As<ILogger>()
-        //         .InstancePerRequest();
+            builder
+                 .RegisterType<ClientService>()
+                 .As<IClientService>()
+                 .InstancePerRequest();
 
-        //    builder.RegisterModule(new BusinessModule());
+            builder
+                .RegisterType<PolicyService>()
+                .As<IPolicyService>()
+                .InstancePerRequest();
 
-        //    base.Load(builder);
-        //}
+            builder
+                 .RegisterType<Log4netAdapter>()
+                 .As<ILogger>()
+                 .InstancePerRequest();
+
+            builder.RegisterModule(new VuelingServiceModule());
+
+            base.Load(builder);
+        }
     }
 }

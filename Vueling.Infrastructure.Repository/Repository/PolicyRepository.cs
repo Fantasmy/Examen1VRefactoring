@@ -19,7 +19,12 @@ namespace Vueling.Infrastructure.Repository.Repository
         /// <summary>
         /// Calling the log helper
         /// </summary>
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
+        private readonly ILogger log;
+        //public AlumnoController(ILogger Log, IBusiness business)
+        //{
+        //    this.Log = Log;
+        //    this.studentBl = business;
+        //}
 
         /// <summary>
         /// The database

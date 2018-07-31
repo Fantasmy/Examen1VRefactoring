@@ -19,7 +19,7 @@ namespace Vueling.Infrastructure.Repository.Repository
         /// <summary>
         /// Calls the log herlper
         /// </summary>
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
+        private readonly ILogger log;
 
         /// <summary>
         /// The database

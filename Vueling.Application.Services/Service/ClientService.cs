@@ -19,7 +19,7 @@ namespace Vueling.Application.Services.Service
         /// <summary>
         /// Calls the log helper
         /// </summary>
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
+        private readonly ILogger log;
 
         /// <summary>
         /// The client repository

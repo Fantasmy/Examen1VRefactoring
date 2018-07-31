@@ -24,7 +24,7 @@ namespace Vueling.Facade.Api.Controllers
     [RoutePrefix("api/Policy")]
     public class PolicyController : ApiController
     {
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
+        private readonly ILogger log;
 
         private readonly IPolicyService<PolicyDto> policyService;
 

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Vueling.Infrastructure.Repository.Contracts
 {
-    public interface IClientRepository<T>
+    public interface IClientRepository<ClientEntity>
     {
-        T Add(T model);
-        List<T> GetAll();
-        T GetById(Guid id);
-        List<T> GetByName(string name);
-        T GetByEmail(string email);
+        ClientEntity Add(ClientEntity model);
+        List<ClientEntity> GetAll();
+        ClientEntity GetById(Guid id);
+        List<ClientEntity> GetByName(string name);
+        ClientEntity GetByEmail(string email);
     }
 }

@@ -6,7 +6,7 @@ namespace Vueling.Facade.Api.Tests.Controllers
     [TestClass()]
     public class ClientsControllerTests
     {
-        public IWebDriver browser;
+        //public IWebDriver browser;
 
         [TestInitialize()]
         public void ClientsControllerTest()

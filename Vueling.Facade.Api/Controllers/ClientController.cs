@@ -26,28 +26,33 @@ namespace Vueling.Facade.Api.Controllers
     [RoutePrefix("api/Client")]
     public class ClientController : ApiController
     {
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
+        private readonly ILogger log;
+        //public ClientController(ILogger Log, IClientService clientS)
+        //{
+        //    this.log = Log;
+        //    this.clientService = clientS;
+        //}
 
         /// <summary>
         /// The client service
         /// </summary>
-        private readonly IClientService<ClientDto> clientService;
+        //private readonly IClientService<ClientDto> clientService;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ClientController"/> class.
-        /// </summary>
-        public ClientController() : this(new ClientService())
-        {
-        }
+        ///// <summary>
+        ///// Initializes a new instance of the <see cref="ClientController"/> class.
+        ///// </summary>
+        //public ClientController() : this(new ClientService())
+        //{
+        //}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClientController"/> class.
         /// </summary>
         /// <param name="clientService">The client service.</param>
-        public ClientController(ClientService clientService)
-        {
-            this.clientService = clientService;
-        }
+        //public ClientController(ClientService clientService)
+        //{
+        //    this.clientService = clientService;
+        //}
 
         // GET: api/Client
         /// <summary>
@@ -60,7 +65,7 @@ namespace Vueling.Facade.Api.Controllers
         {
             log.Debug(Resource.AllCliSent);
 
-            return clientService.GetAll();
+            return Ok(clientService.GetAll());
         }
 
         // GET: api/Client/5

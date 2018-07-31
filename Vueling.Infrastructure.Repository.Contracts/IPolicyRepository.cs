@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Vueling.Infrastructure.Repository.Contracts
 {
-    public interface IPolicyRepository<T>
+    public interface IPolicyRepository<PolicyEntity>
     {
-        T Add(T model);
-        List<T> GetAll();
-        T GetById(Guid id);
+        PolicyEntity Add(PolicyEntity model);
+        List<PolicyEntity> GetAll();
+        PolicyEntity GetById(Guid id);
     }
 }
