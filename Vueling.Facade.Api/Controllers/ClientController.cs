@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Web.Http;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,6 +21,8 @@ using Vueling.Utils.LogHelper;
 namespace Vueling.Facade.Api.Controllers
 {
     [Authorize]
+    [ApiVersion("1.0")]
+    [ApiVersion("0.9", Deprecated = true)]
     [RoutePrefix("api/Client")]
     public class ClientController : ApiController
     {
@@ -95,6 +98,9 @@ namespace Vueling.Facade.Api.Controllers
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>Inserts a new client</returns>
+        [HttpPost]
+        [Route]
+        [MapToApiVersion("1.0")]
         [ResponseType(typeof(ClientDto))]
         public IHttpActionResult Post(ClientDto model)
         {

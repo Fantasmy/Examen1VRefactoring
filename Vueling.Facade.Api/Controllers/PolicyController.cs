@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Web.Http;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,6 +19,8 @@ using Vueling.Utils.LogHelper;
 namespace Vueling.Facade.Api.Controllers
 {
     [Authorize]
+    [ApiVersion("1.0")]
+    [ApiVersion("0.9", Deprecated = true)]
     [RoutePrefix("api/Policy")]
     public class PolicyController : ApiController
     {
@@ -104,33 +107,6 @@ namespace Vueling.Facade.Api.Controllers
 
         }
 
-        //// PUT: api/Policy/5
-        ///// <summary>
-        ///// Puts the specified identifier.
-        ///// </summary>
-        ///// <param name="id">The identifier.</param>
-        ///// <param name="model">The model.</param>
-        ///// <returns></returns>
-        //public IHttpActionResult Put(int id, PolicyDto model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    policyService.Update(model);
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
-
-        //// DELETE: api/Policy/5
-        ///// <summary>
-        ///// Deletes the specified identifier.
-        ///// </summary>
-        ///// <param name="id">The identifier.</param>
-        ///// <returns>Nothing</returns>
-        //public IHttpActionResult Delete(int id)
-        //{
-        //    return Ok(policyService.Remove(id));
-        //}
     }
     
 }

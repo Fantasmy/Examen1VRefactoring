@@ -3,6 +3,12 @@ using WebActivatorEx;
 using Vueling.Facade.Api;
 using Swashbuckle.Application;
 using System.Configuration;
+using Vueling.Facade.Api.App_Start;
+using System.Web.Http.Routing;
+using Microsoft;
+using Microsoft.Web.Http.Description;
+using System.Diagnostics.Contracts;
+using System.Web.Http.Description;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -16,8 +22,25 @@ namespace Vueling.Facade.Api
 
             var thisAssembly = typeof(SwaggerConfig).Assembly;
 
+            var constraintResolver = new DefaultInlineConstraintResolver() { ConstraintMap = { ["apiVersion"] = typeof(ApiVersionRouteConstraint) } };
+            var configuration = new HttpConfiguration();
+            var httpServer = new HttpServer(configuration);
+
+            configuration.AddApiVersioning(o => o.ReportApiVersions = true);
+            configuration.MapHttpAttributeRoutes(constraintResolver);
+
+            var apiExplorer = configuration.AddVersionedApiExplorer(
+                options =>
+                {
+                    options.GroupNameFormat = "'v'VVV";
+
+                    // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
+                    // can also be used to control the format of the API version in route templates
+                    options.SubstituteApiVersionInUrl = true;
+                });
+
             GlobalConfiguration.Configuration
-                .EnableSwagger(c =>
+                .EnableSwagger("{apiVersion}/contract", c =>
                     {
                         c.IncludeXmlComments(string.Format(@xmlPath,
                            System.AppDomain.CurrentDomain.BaseDirectory));
@@ -55,6 +78,37 @@ namespace Vueling.Facade.Api
                         //        vc.Version("v2", "Swashbuckle Dummy API V2");
                         //        vc.Version("v1", "Swashbuckle Dummy API V1");
                         //    });
+                        //c.IgnoreObsoleteActions();
+                        //c.IgnoreObsoleteProperties();
+                        //c.MultipleApiVersions(SelectTargetApi,
+                        //    (vc) =>
+                        //    {
+                        //        vc.Version("v1", "ExamenVueling API v1");
+                        //        //vc.Version("v1.1", "Contoso API v1.1");
+                        //    });
+                        //c.GroupActionsBy(GroupByControllerName);
+                        //c.OperationFilter<RemoveControllerNameInOperationIdFilter>();
+                        c.MultipleApiVersions(
+                                    (apiDescription, version) => apiDescription.GetGroupName() == version,
+                                    info =>
+                                    {
+                                        foreach (var group in apiExplorer.ApiDescriptions)
+                                        {
+                                            var description = "A sample application with Swagger, Swashbuckle, and API versioning.";
+
+                                            if (group.IsDeprecated)
+                                            {
+                                                description += " This API version has been deprecated.";
+                                            }
+
+                                            info.Version(group.Name, $"Sample API {group.ApiVersion}")
+                                                .Contact(c => c.Name("Jenny").Email("mail@somewhere.com"))
+                                                .Description(description)
+                                                .License(l => l.Name("MIT").Url("https://opensource.org/licenses/MIT"))
+                                                .TermsOfService("Shareware");
+                                        }
+                                    });
+                        c.OperationFilter<SwaggerDefaultValues>();
 
                         // You can use "BasicAuth", "ApiKey" or "OAuth2" options to describe security schemes for the API.
                         // See https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md for more details.
@@ -66,7 +120,7 @@ namespace Vueling.Facade.Api
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
                         //
-						// NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
+                        // NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
                         //c.ApiKey("apiKey")
                         //    .Description("API Key Authentication")
                         //    .Name("apiKey")
@@ -237,7 +291,7 @@ namespace Vueling.Facade.Api
                         // a discovery URL for each version. This provides a convenient way for users to browse documentation
                         // for different API versions.
                         //
-                        //c.EnableDiscoveryUrlSelector();
+                        c.EnableDiscoveryUrlSelector();
 
                         // If your API supports the OAuth2 Implicit flow, and you've described it correctly, according to
                         // the Swagger 2.0 specification, you can enable UI support as shown below.
