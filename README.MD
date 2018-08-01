@@ -5,7 +5,7 @@ This is a web api project following DDD (Domain Driven Design) architecture. It 
 
 ## Diagrama 
 
-![alt text](Diagramas/DDDWebApi.png "Diagrama project DDD Web Api")
+![alt text](Diagramas/DDDWebApi2.png "Diagrama project DDD Web Api")
 
 ## Getting Started
 
