@@ -53,7 +53,7 @@ namespace Vueling.Facade.Api.Controllers
         [Authorize(Roles = "admin")]
         public IEnumerable<PolicyDto> GetAll()
         {
-            log.Debug(Resource.AllPolSent);
+            //log.Debug(Resource.AllPolSent);
             return policyService.GetAll();
         }
 
@@ -67,7 +67,7 @@ namespace Vueling.Facade.Api.Controllers
         [Authorize(Roles = "admin, user")]
         public PolicyDto Get(Guid id)
         {
-            log.Debug(Resource.RePolById);
+            //log.Debug(Resource.RePolById);
             return policyService.GetById(id);
         }
 
@@ -96,12 +96,12 @@ namespace Vueling.Facade.Api.Controllers
             }
             catch (VuelingException ex)
             {
-                log.Debug(Resource.NoAddP);
+                //log.Debug(Resource.NoAddP);
                 throw new HttpResponseException(HttpStatusCode.NotAcceptable);
 
             }
 
-            log.Debug(Resource.InserPoli);
+            //log.Debug(Resource.InserPoli);
             return CreatedAtRoute(defApi,
                 new { id = policyDtoInsert.id }, policyDtoInsert);
 

@@ -16,7 +16,7 @@ namespace Vueling.Facade.Api
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
+        private readonly ILogger log;
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -27,15 +27,15 @@ namespace Vueling.Facade.Api
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 
-            ClientController clientApi = new ClientController();
+            //ClientController clientApi = new ClientController();
             ClientsListDto ClientToList = new ClientsListDto();
 
-            ClientToList = HttpClientService.GetAllClients().Result;
+            //ClientToList = HttpClientService.GetAllClients().Result;
 
-            foreach (ClientDto client in ClientToList.clientDto)
-            {
-                clientApi.Post(client);
-            }
+            //foreach (ClientDto client in ClientToList.clientDto)
+            //{
+            //    clientApi.Post(client);
+            //}
 
 
             PolicyController policyApi = new PolicyController();

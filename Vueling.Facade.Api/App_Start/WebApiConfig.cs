@@ -10,8 +10,6 @@ namespace Vueling.Facade.Api
 {
     public static class WebApiConfig
     {
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
-
         public static void Register(HttpConfiguration config)
         {
             var defApi = ConfigurationManager.AppSettings["DefApi"];

@@ -1,17 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using Vueling.Application.Dto;
 
 namespace Vueling.Facade.Api.Tests.Controllers
 {
     [TestClass()]
     public class ClientsControllerTests
     {
-        //public IWebDriver browser;
+        public IWebDriver browser;
 
         [TestInitialize()]
         public void ClientsControllerTest()
         {
-            //chrome = new ChromeDriver();
+            browser = new ChromeDriver();
             browser = new FirefoxDriver();
             browser.Manage().Window.Maximize();
         }
@@ -21,7 +26,7 @@ namespace Vueling.Facade.Api.Tests.Controllers
         [TestMethod()]
         public void GetAllTest()
         {
-            List<ClientsDto> listado = new List<ClientsDto>();
+            List<ClientDto> listado = new List<ClientDto>();
 
             // Apartado Selenium
             browser.Navigate().GoToUrl("http://localhost:60480/api/Clients");
@@ -35,7 +40,8 @@ namespace Vueling.Facade.Api.Tests.Controllers
                 var id = n.FindElement(By.TagName("id"));
                 var role = n.FindElement(By.TagName("role"));
 
-                ClientsDto client = new ClientsDto(id.ToString(), nombre.ToString(), email.ToString(), role.ToString());
+                //ClientDto client = new ClientDto(id.ToString(), nombre.ToString(), email.ToString(), role.ToString());
+                ClientDto client = new ClientDto();
                 listado.Add(client);
             }
 

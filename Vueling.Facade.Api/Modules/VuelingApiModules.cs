@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using Vueling.Application.Dto;
 using Vueling.Application.Services.Contracts;
 using Vueling.Application.Services.Module;
 using Vueling.Application.Services.Service;
@@ -20,12 +21,12 @@ namespace Vueling.Facade.Api.Modules
 
             builder
                  .RegisterType<ClientService>()
-                 .As<IClientService>()
+                 .As<IClientService<ClientDto>>()
                  .InstancePerRequest();
 
             builder
                 .RegisterType<PolicyService>()
-                .As<IPolicyService>()
+                .As<IPolicyService<PolicyDto>>()
                 .InstancePerRequest();
 
             builder

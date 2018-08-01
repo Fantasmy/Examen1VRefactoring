@@ -19,7 +19,7 @@ namespace Vueling.Facade.Api.Controllers
     [RoutePrefix("api/login")]
     public class LoginController : ApiController
     {
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
+        private readonly ILogger log;
 
         /// <summary>
         /// Echoes the ping.

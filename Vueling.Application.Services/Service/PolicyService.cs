@@ -66,7 +66,7 @@ namespace Vueling.Application.Services.Service
                 throw ex;
             }
 
-            log.Debug(Resource2.ReAList);
+            //log.Debug(Resource2.ReAList);
             return model;
         }
 

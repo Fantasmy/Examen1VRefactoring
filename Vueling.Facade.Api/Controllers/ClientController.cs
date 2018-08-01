@@ -27,11 +27,12 @@ namespace Vueling.Facade.Api.Controllers
     public class ClientController : ApiController
     {
         private readonly ILogger log;
-        //public ClientController(ILogger Log, IClientService clientS)
-        //{
-        //    this.log = Log;
-        //    this.clientService = clientS;
-        //}
+        private readonly IClientService<ClientDto> clientService;
+        public ClientController(ILogger Log, IClientService<ClientDto> clientS)
+        {
+            this.log = Log;
+            this.clientService = clientS;
+        }
 
         /// <summary>
         /// The client service
@@ -60,12 +61,12 @@ namespace Vueling.Facade.Api.Controllers
         /// </summary>
         /// <returns>Returns all clients list</returns>
         [HttpGet]
-        [Authorize(Roles = "admin, user")]
+        //[Authorize(Roles = "admin, user")]
         public IEnumerable<ClientDto> GetAll()
         {
             log.Debug(Resource.AllCliSent);
 
-            return Ok(clientService.GetAll());
+            return clientService.GetAll();
         }
 
         // GET: api/Client/5
@@ -74,13 +75,13 @@ namespace Vueling.Facade.Api.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Returns the client identified by id</returns>
-        [HttpGet]
-        [Authorize(Roles = "admin, user")]
-        [Route("api/Clients/id/{id}")]
-        public ClientDto Get(Guid id)
-        {
-            return clientService.GetById(id);
-        }
+        //[HttpGet]
+        //[Authorize(Roles = "admin, user")]
+        //[Route("api/Clients/id/{id}")]
+        ////public ClientDto Get(Guid id)
+        //{
+        //    //return clientService.GetById(id);
+        //}
 
         // GET: api/Client/John
         /// <summary>
@@ -88,14 +89,14 @@ namespace Vueling.Facade.Api.Controllers
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>Returns the client identified by name</returns>
-        [HttpGet]
-        [Authorize(Roles = "admin, user")]
-        [Route("api/Clients/name/{name}")]
-        public List<ClientDto> GetByName(string name)
-        {
-            log.Debug(Resource.ReCliByName);
-            return clientService.GetByName(name);
-        }
+        //[HttpGet]
+        //[Authorize(Roles = "admin, user")]
+        //[Route("api/Clients/name/{name}")]
+        //public List<ClientDto> GetByName(string name)
+        //{
+        //    //log.Debug(Resource.ReCliByName);
+        //    //return clientService.GetByName(name);
+        //}
 
         // POST: api/Client
         /// <summary>
@@ -118,9 +119,9 @@ namespace Vueling.Facade.Api.Controllers
 
             try
             {
-                log.Debug(Resource.TryNewC);
-                clientDtoInsert =
-                         clientService.Add(model);
+                //log.Debug(Resource.TryNewC);
+                //clientDtoInsert =
+                //         //clientService.Add(model);
             }
             catch (VuelingException ex)
             {
